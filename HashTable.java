@@ -14,21 +14,22 @@ public class HashTable<K, V> implements Table<K, V>{
             this.next = next;
         }
     }
-    
-    // assuming objects used as keys correctly implement
-    // hashCode, equals, and toString methods
     private Node[] hashTable;
+    private HashTableIterator<K> it;
     
     public HashTable(int size){
-        hashTable = (Node[]) new Object[size];
+        hashTable = (Node[])new Object[size];
+        //hashTable = new Node[size];
+        it = new HashTableIterator<K>();
     }
 
     public void put(K key, V value) {
         int slot = key.hashCode() % hashTable.length;
         if (hashTable[slot] == null) {
             hashTable[slot] = new Node(key, value, null);
-        } else {
-            // chaining
+            it.add(key);
+        } 
+        else {
             Node current = hashTable[slot];
             while (current.next != null) {
                 if(current.key.equals(key)){ // key exists
@@ -43,6 +44,7 @@ public class HashTable<K, V> implements Table<K, V>{
             }
             else{
                 current.next = new Node(key, value, null);
+                it.add(key);
             }
         }
     }
@@ -60,9 +62,6 @@ public class HashTable<K, V> implements Table<K, V>{
     }
 
     public Iterator<K> iterator() {
-        // returns iterator object, allowing you to get each of the key values in turn.
-        return new HashTableIterator<K>();
+        return it;
     }
-
-    
 }
