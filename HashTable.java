@@ -1,8 +1,5 @@
 import java.util.Iterator;
 
-/**
- * HashTable
- */
 public class HashTable<K, V> implements Table<K, V>{
     class Node<E, F> {
         public E key;

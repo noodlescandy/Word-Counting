@@ -1,8 +1,5 @@
 import java.util.Iterator;
 
-/**
- * HashTableIterator
- */
 public class HashTableIterator<K> implements Iterator<K>{
     class Node{
         private K key;
